@@ -1,55 +1,76 @@
-# endemo v2.0.0 Alpha
+# Endemo v2.0.0 Alpha
 
-The module calculates the forecast energy demand for a defined  geographical area. The result output includes the energy-related sectors (households; industry; traffic; commerce, trade and services).   
+**Endemo** is a Python-based energy demand forecasting model. It uses historical data and various regression methods (linear, quadratic, and custom quadratic with offset) to estimate future energy demand across multiple sectors (households, industry, transport, etc.). By breaking down the estimation into distinct sectors and subsectors, Endemo aims to produce more accurate forecasts of overall useful energy demand.
 
-## Features
-...
+This repository is a ground-up rework of the original model [endemo](https://github.com/tum-ens/endemo/tree/main). It has been incorporated in the main repository [here](https://github.com/tum-ens/endemo/tree/endemo-v2).
+
+## Key Features
+
+- **Sector-Specific Modeling:** Each sector and subsector (e.g., steel production, household heating, transport types) is estimated separately for higher accuracy.
+- **Data-Driven Forecasts:** Uses historical input data from Excel files and applies regression techniques to project future trends.
+- **Flexible Regression Approaches:** Supports linear, standard quadratic, and custom quadratic-with-offset regressions.
+- **Configurable Outputs:** Produces forecasts stored in Excel format. Plots and visualizations of input data and resulting forecasts can be optionally generated.
+- **Structured Results:** Outputs are typically organized by sector, subsector, and estimation type (population, GDP, product output, heating demand, etc.).
+
+## Project Structure
+
+The model’s workflow involves reading input data, preprocessing and filtering instances, applying regression-based estimations, and consolidating the results. The included images illustrate how data, filters, and parameters flow through the model’s layers.
+
+### High-Level Flow
+
+1. **Input & Settings:** Load input Excel files and configuration parameters.
+2. **Preprocessing:** Process and group data. Extract coefficients and define country groups.
+3. **Instance Filters & Model Setup:** Apply sector, country, and product filters, then run the model scenarios.
+4. **Forecasting & Output:** Run regression estimates, produce forecast data, and (optionally) generate plots.
+
+![Slide27](https://github.com/user-attachments/assets/1c5a97a0-5d65-4e3b-9ed2-eeb0c8425c3b)
+![Slide24](https://github.com/user-attachments/assets/0a68f3e8-2544-4100-8fd3-2a9266340bb2)
 
 ## Documentation
 
-The documentation of the source code can be found locally in folder docs/_build/html/index.html
-Please open with it within a browser. 
+Detailed documentation of the source code is located in `docs/_build/html/index.html`. Open this file in a web browser for full API references and usage guidelines.
 
-Creating a bookmark within the browser can help you find the documentation more quickly when used often.
+For frequent use, consider bookmarking the documentation page.
 
 ## Installation
 
-### Git installation (developers only)
-If you intend to further develop the software, please install the git version control system first. In Linux distributions, git can be installed via the package manager. For Windows, go to http://git-scm.com/. Remark: At step "Adjusting your PATH environment", select "Run Git from the Windows Command Prompt".
+**Recommended:** Use Anaconda or Mamba for managing the Python environment.  
+**Python Version:** 3.10 recommended.
 
-Then, in a directory of your choice, clone this repository by:
-`git clone https://github.com/LarissaBreuning/endemo.git`
+### Using Anaconda/Mamba (Recommended)
 
-A better way to clone repositories is to use a password-protected SSH key. See the [Github documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) on how to add an SSH key to your account.
+1. Install [Anaconda](http://continuum.io/downloads) or [Mamba](https://github.com/conda-forge/miniforge#mambaforge) (64-bit preferred).
+2. Download the `endemo-env.yml` environment file from this repository.
+3. Open a new terminal and run:
+   ```bash
+   conda env create -f endemo-env.yml
+   conda activate endemo
+   ```
+4. If needed, initialize conda:
+   ```bash
+   conda init
+   ```
 
-Continue at “Installation of endemo” below.
+### Manual Installation
 
-### Download (users only)
-If you do not intend to further develop the software, pick the [latest release](https://github.com/LarissaBreuning/endemo/releases) and download the zip file.
+If not using Anaconda/Mamba, install packages listed in `endemo-env.yml` manually. Ensure compatibility with Python 3.10 if possible.
 
-### Installation of endemo
-We recommend using the Python distribution Anaconda or Mamba. If you don't want  to use it or already have an existing Python (version 3.10 recommended) installation, you can also download the required packages by yourself.
+## Getting Started
 
-#### Anaconda/Mamba (recommended)
+1. Navigate to the directory where you cloned or downloaded Endemo.
+2. Run:
+   ```bash
+   python main.py
+   ```
+3. The results, including output Excel files (and optionally generated plots), will be stored in the `output` directory.
 
-1. **[Anaconda (Python 3)](http://continuum.io/downloads)/[Mamba](https://github.com/conda-forge/miniforge#mambaforge)** Choose the 64-bit installer if possible.
-   During the installation procedure, keep both checkboxes "modify PATH"  and "register Python" selected! If only higher Python versions are  available, you can switch to a specific Python Version by typing `conda install python=<version>`
-2. Packages
-   1. Download the environment file endemo-env.yml.
-   2. Launch a new command prompt (Windows: Win+R, type "cmd", Enter / Linux: CTRL+Alt+T)
-   3. Install it via conda or mamba by `conda env create -f endemo-env.yml`.
-   4. Each time you open a new terminal for running endemo, you can activate the environment by `conda activate endemo`.
-   5. At first run, you may have to init conda or mamba by running `conda init`
+## Contributing
 
-Continue at [Get Started](https://github.com/LarissaBreuning/endemo#get-started).
+For developers, we recommend using Git with SSH keys for secure access.  
+[Git Installation](http://git-scm.com/) instructions and [SSH key setup](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account) are available on the official GitHub documentation.
 
-#### Manually (the hard way)
+For pull requests, please ensure code quality, include tests where applicable, and update documentation as needed.
 
-For all packages, best take the latest release or release  candidate version. Both 32 bit and 64 bit versions work, though 64 bit  is recommended. The list of packages can be found in the environment file endemo-env.yml.
+---
 
-<a name="get-started"></a>
-## Get started
-
-After installation, got to the directory you downloaded or cloned endemo into and execute the script main.py by using the following on the command prompt (Windows) or Terminal (Linux) : python main.py.
-
-The results will be stored in the folder output.
+This revised README gives a clearer, more direct overview of the project's purpose, features, installation steps, usage instructions, and structure. It also highlights the input/output formats and how to access documentation for further details.
